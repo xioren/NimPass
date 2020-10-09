@@ -67,7 +67,8 @@ when isMainModule:
   Options:
     -h, --help                      Print this help message.
     -v, --version                   Print version information.
-    -m, --mode                      Pass(w)ord or pass(p)hrase
+    -w, --word                      Generate pass(w)ord (default)
+    -p, --phrase                    Generate pass(p)hrase
     -l, --len --length              Length of password or passphrase
     -n, --num --number              Number of pass's to generate
     -e --ext --extended             Use extended character set
@@ -77,7 +78,7 @@ when isMainModule:
     nimpass -l32 -n8
     nimpass -mp --len 8 -s+
   """
-    sNoVal = {'e'}
+    sNoVal = {'e', 'p', 'w'}
     lNoVal = @["ext", "extended"]
   var
     mode = "w"
@@ -93,9 +94,10 @@ when isMainModule:
         echo key
       of cmdShortOption, cmdLongOption:
         case key
-        of "h", "help": echo help
-        of "v", "version": echo version
-        of "m", "mode": mode = val
+        of "h", "help": echo help;quit(0)
+        of "v", "version": echo version;quit(0)
+        of "w", "word": mode = "w"
+        of "p", "phrase": mode = "p"
         of "l", "len", "length": len = parseInt(val)
         of "n", "num", "number": num = parseInt(val)
         of "s", "sep", "separator": sep = val
