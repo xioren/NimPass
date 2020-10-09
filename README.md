@@ -13,5 +13,5 @@ quickly generate cryptographically secure passwords and phrases
   + nimpass -l32 -n8
   + nimpass -mp --len 8 -s+
 
-## NOTE
+#### NOTE
 currently only works on unix systems

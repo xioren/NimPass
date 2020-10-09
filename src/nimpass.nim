@@ -73,6 +73,7 @@ when isMainModule:
     -e --ext --extended             Use extended character set
 
   Examples:
+    nimpass
     nimpass -l32 -n8
     nimpass -mp --len 8 -s+
   """
