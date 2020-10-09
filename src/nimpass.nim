@@ -91,7 +91,7 @@ when isMainModule:
     for kind, key, val in getopt(shortNoVal=sNoVal, longNoVal=lNoVal):
       case kind
       of cmdArgument:
-        echo key
+        discard
       of cmdShortOption, cmdLongOption:
         case key
         of "h", "help": echo help;quit(0)
