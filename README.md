@@ -1,6 +1,6 @@
 # NimPass
 
-quickly generate cryptographically secure passwords and phrases
+quickly generate secure passwords and phrases
 
 #### changelog v0.0.1:
   + initial release
@@ -11,7 +11,7 @@ quickly generate cryptographically secure passwords and phrases
 ### Examples
   + nimpass
   + nimpass -l32 -n8
-  + nimpass -mp --len 8 -s+
+  + nimpass -s+ --mode p --length 8
 
 #### NOTE
 currently only works on unix systems
