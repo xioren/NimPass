@@ -43,11 +43,11 @@ proc generate*(m, sep: string, l, n: var int, e: bool) =
   ##    number to generate
   ##  e: bool
   ##    extended char set
-  generate_alpha(e)
   if n <= 0:
     n = 1
   for _ in 0..<n:
     if m == "w":
+      generate_alpha(e)
       echo generate_password(l)
     else:
       echo generate_passphrase(l, sep)
@@ -84,6 +84,7 @@ when isMainModule:
 
   when isMainModule:
     # FIXME: handle - arg error
+    # TODO: seperate word/phrase default lengths
     for kind, key, val in getopt(shortNoVal=sNoVal, longNoVal=lNoVal):
       case kind
       of cmdArgument:
@@ -106,4 +107,6 @@ when isMainModule:
         of "e", "ext", "extended": ext = true
       of cmdEnd: assert(false)
 
+  if len <= 0:
+    len = 16
   generate(mode, sep, len, num, ext)

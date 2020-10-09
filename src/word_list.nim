@@ -1,4 +1,4 @@
-# NOTE: EFF"s long word list
+# NOTE: EFF's long word list
 
 const dictionary = [
     "abacus",
