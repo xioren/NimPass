@@ -14,7 +14,7 @@ proc get_rand_bytes(n: int): int =
       raise newException(OSError, "/dev/urandom is not available")
   try:
     let read = readBuffer(file, addr(buffer[0]), n)
-    if read <= n:
+    if read < n:
       raise newException(OSError, "not enough entropy in /dev/urandom")
   finally:
     file.close()
