@@ -1,6 +1,6 @@
 # NimPass
 
-quickly generate secure passwords and phrases
+quickly generate secure passwords and passphrases
 
 #### changelog v0.0.1:
   + initial release
