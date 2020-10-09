@@ -18,7 +18,7 @@ proc generate_alpha*(e: bool) =
       alphabet.add($ch)
 
 
-proc generate_passphrase*(length: var int, sep: string): string =
+proc generate_passphrase*(length: int, sep: string): string =
   var words: seq[string] = @[]
 
   for _ in 0..<length:
@@ -26,7 +26,7 @@ proc generate_passphrase*(length: var int, sep: string): string =
   result = join(words, sep)
 
 
-proc generate_password*(length: var int): string =
+proc generate_password*(length: int): string =
   for _ in 0..<length:
     result.add(choose[char](alphabet))
 
@@ -45,9 +45,13 @@ proc generate*(m, sep: string, l, n: var int, e: bool) =
   ##    extended char set
   if n <= 0:
     n = 1
+  if l <= 0:
+    l = 16
+  if m == "w":
+    generate_alpha(e)
+
   for _ in 0..<n:
     if m == "w":
-      generate_alpha(e)
       echo generate_password(l)
     else:
       echo generate_passphrase(l, sep)
@@ -107,6 +111,4 @@ when isMainModule:
         of "e", "ext", "extended": ext = true
       of cmdEnd: assert(false)
 
-  if len <= 0:
-    len = 16
   generate(mode, sep, len, num, ext)
