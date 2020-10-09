@@ -76,10 +76,10 @@ when isMainModule:
   Examples:
     nimpass
     nimpass -l32 -n8
-    nimpass -mp --len 8 -s+
+    nimpass --phrase --length 8 --sep "*"
   """
     sNoVal = {'e', 'p', 'w'}
-    lNoVal = @["ext", "extended"]
+    lNoVal = @["ext", "extended", "phrase", "word"]
   var
     mode = "w"
     len: int
