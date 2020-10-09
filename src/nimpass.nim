@@ -20,8 +20,6 @@ proc generate_alpha*(e: bool) =
 
 proc generate_passphrase*(length: var int, sep: string): string =
   var words: seq[string] = @[]
-  if length <= 0:
-    length = 8
 
   for _ in 0..<length:
     words.add(choose[string](dictionary))
@@ -29,9 +27,6 @@ proc generate_passphrase*(length: var int, sep: string): string =
 
 
 proc generate_password*(length: var int): string =
-  if length <= 0:
-    length = 16
-
   for _ in 0..<length:
     result.add(choose[char](alphabet))
 
@@ -82,12 +77,13 @@ when isMainModule:
     lNoVal = @["ext", "extended", "phrase", "word"]
   var
     mode = "w"
-    len: int
-    num: int
+    len = 16
+    num = 1
     sep = "+"
     ext = false
 
   when isMainModule:
+    # FIXME: handle - arg error
     for kind, key, val in getopt(shortNoVal=sNoVal, longNoVal=lNoVal):
       case kind
       of cmdArgument:
@@ -98,9 +94,15 @@ when isMainModule:
         of "v", "version": echo version;quit(0)
         of "w", "word": mode = "w"
         of "p", "phrase": mode = "p"
-        of "l", "len", "length": len = parseInt(val)
-        of "n", "num", "number": num = parseInt(val)
-        of "s", "sep", "separator": sep = val
+        of "l", "len", "length":
+          if val != "":
+            len = parseInt(val)
+        of "n", "num", "number":
+          if val != "":
+            num = parseInt(val)
+        of "s", "sep", "separator":
+          if val != "":
+            sep = val
         of "e", "ext", "extended": ext = true
       of cmdEnd: assert(false)
 
