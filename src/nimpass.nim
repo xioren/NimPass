@@ -62,7 +62,7 @@ proc generate*(mode, sep: string, len, num: var int, ext: bool) =
 
 when isMainModule:
   const
-    version = "0.0.1"
+    version = "0.0.2"
     help = """
   Usage: nimpass [options]
 
