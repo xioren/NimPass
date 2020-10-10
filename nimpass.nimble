@@ -1,6 +1,6 @@
-version     = "0.0.1"
+version     = "0.0.2"
 author      = "xioren"
-description = "quickly generate cryptographically secure passwords and phrases"
+description = "quickly generate secure passwords and phrases"
 license     = "MIT"
 srcDir      = "src"
 bin         = @["nimpass"]

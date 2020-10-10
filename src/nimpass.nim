@@ -4,57 +4,60 @@ include rand, word_list
 export parseopt, strutils
 
 const
+  core = Letters + Digits
+  # NOTE: https://owasp.org/www-community/password-special-characters
   punc = {'!', '"', '#', '$', '%', '&', '\'', '(',')', '*', '+', ',', '-', '.', '/',
-          ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '`', '{', '|', '}', '~'}
+          ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}', '~'}
 var
   alphabet: string
 
 
-proc generate_alpha*(e: bool) =
-  for ch in IdentChars:
-    alphabet.add($ch)
-  if e:
-    for ch in punc:
-      alphabet.add($ch)
+proc generate_alpha*(ext: bool) =
+  for chr in core:
+    alphabet.add(chr)
+  if ext:
+    for chr in punc:
+      alphabet.add(chr)
 
 
-proc generate_passphrase*(length: int, sep: string): string =
+proc generate_passphrase*(len: int, sep: string): string =
   var words: seq[string] = @[]
 
-  for _ in 0..<length:
+  for _ in 0..<len:
     words.add(choose[string](dictionary))
   result = join(words, sep)
 
 
-proc generate_password*(length: int): string =
-  for _ in 0..<length:
+proc generate_password*(len: int): string =
+  for _ in 0..<len:
     result.add(choose[char](alphabet))
 
 
-proc generate*(m, sep: string, l, n: var int, e: bool) =
+proc generate*(mode, sep: string, len, num: var int, ext: bool) =
   ## generate n pass(words/phrases)
   ##
   ## Parameters:
-  ##  m: char
+  ##  mode: char
   ##    choose pass - (p)hrase or (w)ord
-  ##  l: int
+  ##  len: int
   ##    length of pass(phrase/word)
-  ##  n: int
+  ##  num: int
   ##    number to generate
-  ##  e: bool
+  ##  ext: bool
   ##    extended char set
-  if n <= 0:
-    n = 1
-  if l <= 0:
-    l = 16
-  if m == "w":
-    generate_alpha(e)
 
-  for _ in 0..<n:
-    if m == "w":
-      echo generate_password(l)
+  if num <= 0:
+    num = 1
+  if len <= 0:
+    len = 16
+  if mode == "w":
+    generate_alpha(ext)
+
+  for _ in 0..<num:
+    if mode == "w":
+      echo generate_password(len)
     else:
-      echo generate_passphrase(l, sep)
+      echo generate_passphrase(len, sep)
 
 
 when isMainModule:
@@ -75,7 +78,7 @@ when isMainModule:
   Examples:
     nimpass
     nimpass -l32 -n8
-    nimpass --phrase --length 8 --sep "*"
+    nimpass --phrase --length 8 --sep ":"
   """
     sNoVal = {'e', 'p', 'w'}
     lNoVal = @["ext", "extended", "phrase", "word"]
