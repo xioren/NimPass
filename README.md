@@ -2,9 +2,10 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.0.3:
+#### changelog v0.0.4:
   + added readable option for excluding ambiguous characters
   + output is now clearer and easier to read
+  + fixed readable argument no val error
   + misc code cleanup and improvements
 
 ### Installation
