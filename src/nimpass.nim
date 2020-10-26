@@ -99,13 +99,13 @@ when isMainModule:
     nimpass -l32 -n8
     nimpass --phrase --length 8 --sep ":"
   """
-    sNoVal = {'e', 'p', 'w'}
-    lNoVal = @["ext", "extended", "phrase", "word"]
+    sNoVal = {'e', 'p', 'w', 'r'}
+    lNoVal = @["ext", "extended", "phrase", "word", "readable"]
   var
     mode = "w"
+    sep = "+"
     len = 16
     num = 1
-    sep = "+"
     ext = false
     readable = false
 
