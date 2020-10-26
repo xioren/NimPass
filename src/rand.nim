@@ -22,7 +22,6 @@ proc get_rand_bytes(n: int): int =
 
 
 proc rand_below(n: int): int =
-  # FIXME: ineficient brute force approach
   # TODO: add bit len check here
   var bytes: int
   if n <= 255:

@@ -2,17 +2,35 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.0.2:
-  + minor syntax changes
+#### changelog v0.0.3:
+  + added readable option for excluding ambiguous characters
+  + output is now clearer and easier to read
   + misc code cleanup and improvements
 
 ### Installation
-  + nimble install nimpass
+```
+nimble install nimpass
+```
 
-### Examples
-  + nimpass
-  + nimpass -l32 -n8
-  + nimpass --phrase --length 8 --sep ":"
+### Usage
+```
+Usage: nimpass [options]
+
+Options:
+  -h, --help                      Print this help message.
+  -v, --version                   Print version information.
+  -w, --word                      Generate pass(w)ord (default)
+  -p, --phrase                    Generate pass(p)hrase
+  -l, --len --length              Length of password or passphrase
+  -n, --num --number              Number of pass's to generate
+  -e --ext --extended             Use extended character set
+  -r --readable                   exclude ambiguous characters
+
+Examples:
+  nimpass
+  nimpass -l32 -n8
+  nimpass --phrase --length 8 --sep ":"
+```
 
 #### NOTE
-currently only works on unix systems
+currently only compatible with unix systems
