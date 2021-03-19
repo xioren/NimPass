@@ -85,14 +85,15 @@ when isMainModule:
   Usage: nimpass [options]
 
   Options:
-    -h, --help                      Print this help message.
-    -v, --version                   Print version information.
+    -h, --help                      Print this help message
+    -v, --version                   Print version information
     -w, --word                      Generate pass(w)ord (default)
     -p, --phrase                    Generate pass(p)hrase
     -l, --len --length              Length of password or passphrase
     -n, --num --number              Number of pass's to generate
     -e --ext --extended             Use extended character set
-    -r --readable                   exclude ambiguous characters
+    -r --readable                   Exclude ambiguous characters
+    -s --sep --separator            Separator used to separate words (default "+")
 
   Examples:
     nimpass
@@ -109,29 +110,28 @@ when isMainModule:
     ext = false
     readable = false
 
-  when isMainModule:
-    # TODO: seperate word/phrase default lengths
-    for kind, key, val in getopt(shortNoVal=sNoVal, longNoVal=lNoVal):
-      case kind
-      of cmdArgument:
-        discard
-      of cmdShortOption, cmdLongOption:
-        case key
-        of "h", "help": echo help;quit(0)
-        of "v", "version": echo version;quit(0)
-        of "w", "word": mode = "w"
-        of "p", "phrase": mode = "p"
-        of "l", "len", "length":
-          if val != "":
-            len = parseInt(val)
-        of "n", "num", "number":
-          if val != "":
-            num = parseInt(val)
-        of "s", "sep", "separator":
-          if val != "":
-            sep = val
-        of "e", "ext", "extended": ext = true
-        of "r", "readable": readable = true
-      of cmdEnd: assert(false)
+  # TODO: seperate word/phrase default lengths
+  for kind, key, val in getopt(shortNoVal=sNoVal, longNoVal=lNoVal):
+    case kind
+    of cmdArgument:
+      discard
+    of cmdShortOption, cmdLongOption:
+      case key
+      of "h", "help": echo help;quit(0)
+      of "v", "version": echo version;quit(0)
+      of "w", "word": mode = "w"
+      of "p", "phrase": mode = "p"
+      of "l", "len", "length":
+        if val != "":
+          len = parseInt(val)
+      of "n", "num", "number":
+        if val != "":
+          num = parseInt(val)
+      of "s", "sep", "separator":
+        if val != "":
+          sep = val
+      of "e", "ext", "extended": ext = true
+      of "r", "readable": readable = true
+    of cmdEnd: assert(false)
 
   generate(mode, sep, len, num, ext, readable)
