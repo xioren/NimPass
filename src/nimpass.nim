@@ -1,8 +1,6 @@
 import parseopt, strutils
 include rand, word_list
 
-export parseopt, strutils
-
 
 const
   core = Letters + Digits
@@ -18,6 +16,13 @@ const
   readable_punc = {'@', '#', '$', '%', '^', '&', '*', '='}
 var
   alphabet: string
+
+
+proc doQuit(msg="") {.noReturn.} =
+  ## clean quit
+  if msg != "":
+    echo msg
+  doAssert false
 
 
 proc generate_alpha(ext, readable: bool) =
@@ -39,16 +44,16 @@ proc generate_passphrase(len: int, sep: string): string =
   var words: seq[string] = @[]
 
   for _ in 0..<len:
-    words.add(choose[string](dictionary))
+    words.add(choose(dictionary))
   result = join(words, sep)
 
 
 proc generate_password(len: int): string =
   for _ in 0..<len:
-    result.add(choose[char](alphabet))
+    result.add(choose(alphabet))
 
 
-proc generate*(mode, sep: string, len, num: var int, ext, readable: bool) =
+proc generate*(mode, sep: string, wlen, plen, num: int, ext, readable: bool) =
   ## generate n pass(words/phrases)
   ##
   ## Parameters:
@@ -63,24 +68,21 @@ proc generate*(mode, sep: string, len, num: var int, ext, readable: bool) =
   ## readable: bool
   ##    exlude ambiguous chars
 
-  if num <= 0:
-    num = 1
-  if len <= 0:
-    len = 16
   if mode == "w":
     generate_alpha(ext, readable)
 
   for _ in 0..<num:
     echo "---BEGIN---"
     if mode == "w":
-      echo generate_password(len)
+      echo generate_password(wlen)
     else:
-      echo generate_passphrase(len, sep)
+      echo generate_passphrase(plen, sep)
     echo "----END----\n"
 
-when isMainModule:
+
+proc main() =
   const
-    version = "0.0.4"
+    version = "0.0.6"
     help = """
   Usage: nimpass [options]
 
@@ -105,33 +107,57 @@ when isMainModule:
   var
     mode = "w"
     sep = "+"
-    len = 16
+    wlen = 16
+    plen = 8
     num = 1
     ext = false
     readable = false
 
-  # TODO: seperate word/phrase default lengths
   for kind, key, val in getopt(shortNoVal=sNoVal, longNoVal=lNoVal):
     case kind
+    of cmdEnd:
+      doQuit()
     of cmdArgument:
       discard
     of cmdShortOption, cmdLongOption:
       case key
-      of "h", "help": echo help;quit(0)
-      of "v", "version": echo version;quit(0)
-      of "w", "word": mode = "w"
-      of "p", "phrase": mode = "p"
+      of "h", "help":
+        echo help
+        doQuit()
+      of "v", "version":
+        echo version
+        doQuit()
+      of "w", "word":
+        mode = "w"
+      of "p", "phrase":
+        mode = "p"
       of "l", "len", "length":
         if val != "":
-          len = parseInt(val)
+          wlen = parseInt(val)
+          plen = parseInt(val)
       of "n", "num", "number":
         if val != "":
           num = parseInt(val)
       of "s", "sep", "separator":
         if val != "":
           sep = val
-      of "e", "ext", "extended": ext = true
-      of "r", "readable": readable = true
-    of cmdEnd: assert(false)
+      of "e", "ext", "extended":
+        ext = true
+      of "r", "readable":
+        readable = true
 
-  generate(mode, sep, len, num, ext, readable)
+  if num <= 0:
+    num = 1
+  if plen <= 0:
+    plen = 8
+  elif wlen <= 0:
+    wlen = 16
+
+  generate(mode, sep, wlen, plen, num, ext, readable)
+
+
+when isMainModule:
+  try:
+    main()
+  except AssertionDefect:
+    discard

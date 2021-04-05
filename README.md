@@ -2,11 +2,13 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.0.5:
+#### changelog v0.0.6:
+  + separate word/phrase default lengths
+  + bug fixes
   + misc code cleanup and improvements
 
 ### Installation
-```
+```bash
 nimble install nimpass
 ```
 

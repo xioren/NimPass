@@ -5,7 +5,7 @@ const
   urandom = "/dev/urandom"
 
 
-proc get_rand_bytes(n: int): int =
+proc get_rand_bytes(n: int): int {.inline.} =
   var
     file: File
     buffer = newString(n)
@@ -22,7 +22,8 @@ proc get_rand_bytes(n: int): int =
 
 
 proc rand_below(n: int): int =
-  # TODO: add bit len check here
+  # TODO: add bit len check here?
+  # NOTE: handles ints up to 65,535
   var bytes: int
   if n <= 255:
     bytes = 1
