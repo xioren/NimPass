@@ -2,8 +2,8 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.0.7:
-  + misc code cleanup and improvements
+#### changelog v0.0.8:
+  + update nim deps
 
 ### Installation
 ```bash
