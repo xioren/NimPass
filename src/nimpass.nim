@@ -18,13 +18,6 @@ var
   alphabet: string
 
 
-proc doQuit(msg="") {.noReturn.} =
-  ## clean quit
-  if msg != "":
-    echo msg
-  doAssert false
-
-
 proc generate_alpha(ext, readable: bool) =
   if readable:
     for chr in readable_core:
@@ -82,7 +75,7 @@ proc generate*(mode, sep: string, wlen, plen, num: int, ext, readable: bool) =
 
 proc main() =
   const
-    version = "0.0.6"
+    version = "0.0.7"
     help = """
   Usage: nimpass [options]
 
@@ -116,17 +109,17 @@ proc main() =
   for kind, key, val in getopt(shortNoVal=sNoVal, longNoVal=lNoVal):
     case kind
     of cmdEnd:
-      doQuit()
+      return
     of cmdArgument:
       discard
     of cmdShortOption, cmdLongOption:
       case key
       of "h", "help":
         echo help
-        doQuit()
+        return
       of "v", "version":
         echo version
-        doQuit()
+        return
       of "w", "word":
         mode = "w"
       of "p", "phrase":
@@ -157,7 +150,4 @@ proc main() =
 
 
 when isMainModule:
-  try:
-    main()
-  except AssertionDefect:
-    discard
+  main()

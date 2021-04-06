@@ -2,9 +2,7 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.0.6:
-  + separate word/phrase default lengths
-  + bug fixes
+#### changelog v0.0.7:
   + misc code cleanup and improvements
 
 ### Installation
