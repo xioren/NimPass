@@ -1,4 +1,4 @@
-import parseopt, strutils
+import std/[parseopt, strutils]
 include rand, word_list
 
 
@@ -75,7 +75,7 @@ proc generate*(mode, sep: string, wlen, plen, num: int, ext, readable: bool) =
 
 proc main() =
   const
-    version = "0.0.8"
+    version = "0.0.9"
     help = """
   Usage: nimpass [options]
 

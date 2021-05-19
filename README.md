@@ -2,8 +2,9 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.0.8:
-  + update nim deps
+#### changelog v0.0.9:
+  + use readChars instead of readBuffer
+  + remove tests
 
 ### Installation
 ```bash
