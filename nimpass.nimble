@@ -1,6 +1,6 @@
 # Package
 
-version     = "0.0.9"
+version     = "0.1.0"
 author      = "xioren"
 description = "quickly generate secure passwords and passphrases"
 license     = "MIT"
