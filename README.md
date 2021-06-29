@@ -2,9 +2,8 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.0.9:
-  + use readChars instead of readBuffer
-  + remove tests
+#### changelog v0.1.0:
+  + revert to readBuffer and simplify rand_below
 
 ### Installation
 ```bash

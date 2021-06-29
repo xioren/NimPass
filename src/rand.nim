@@ -4,33 +4,23 @@ import strutils
 const urandom = "/dev/urandom"
 
 
-proc get_rand_bytes(n: int): int {.inline.} =
+proc get_rand_bytes(): int {.inline.} =
   var
     file: File
-    buffer = newString(n)
+    buffer = newString(7)
 
   if not file.open(urandom):
     raise newException(OSError, "/dev/urandom is not available")
   try:
-    if file.readChars(buffer, 0, n) < n:
+    if file.readBuffer(addr(buffer[0]), 7) < 7:
       raise newException(OSError, "not enough entropy in /dev/urandom")
   finally:
     file.close()
-  result = parseHexInt(toHex(buffer))
+  result = fromHex[int](toHex(buffer))
 
 
 proc rand_below(n: int): int {.inline.} =
-  # NOTE: handles ints up to 65,535
-  # TODO: improve this
-  var bytes: int
-  if n <= 255:
-    bytes = 1
-  else:
-    bytes = 2
-
-  result = get_rand_bytes(bytes)
-  while result >= n or result < 0:
-    result = get_rand_bytes(bytes)
+  result = get_rand_bytes() mod n
 
 
 proc choose[T](choices: openarray[T]): T =
