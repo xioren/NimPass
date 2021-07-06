@@ -2,8 +2,8 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.1.0:
-  + revert to readBuffer and simplify rand_below
+#### changelog v0.1.1:
+  + remove modulo bias in rand
 
 ### Installation
 ```bash

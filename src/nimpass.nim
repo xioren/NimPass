@@ -14,8 +14,7 @@ const
           ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}',
           '~'}
   readable_punc = {'@', '#', '$', '%', '^', '&', '*', '='}
-var
-  alphabet: string
+var alphabet: string
 
 
 proc generate_alpha(ext, readable: bool) =
@@ -75,7 +74,7 @@ proc generate*(mode, sep: string, wlen, plen, num: int, ext, readable: bool) =
 
 proc main() =
   const
-    version = "0.1.0"
+    version = "0.1.1"
     help = """
   Usage: nimpass [options]
 
