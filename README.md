@@ -2,8 +2,8 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.1.1:
-  + remove modulo bias in rand
+#### changelog v0.2.0:
+  + use new urandom module added in nim 1.6. this makes the program available on most major platforms; not just linux.
 
 ### Installation
 ```bash
@@ -30,6 +30,3 @@ Examples:
   nimpass -l32 -n8
   nimpass --phrase --length 8 --sep ":"
 ```
-
-#### NOTE
-currently only compatible with \*nix systems

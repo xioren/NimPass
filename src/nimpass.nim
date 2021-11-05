@@ -4,7 +4,7 @@ include rand, word_list
 
 const
   core = Letters + Digits
-  readable_core = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
+  readableCore = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
                    'N', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a',
                    'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n',
                    'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '2',
@@ -13,16 +13,16 @@ const
   punc = {'!', '"', '#', '$', '%', '&', '\'', '(',')', '*', '+', ',', '-', '.', '/',
           ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}',
           '~'}
-  readable_punc = {'@', '#', '$', '%', '^', '&', '*', '='}
+  readablePunc = {'@', '#', '$', '%', '^', '&', '*', '='}
 var alphabet: string
 
 
-proc generate_alpha(ext, readable: bool) =
+proc generateAlpha(ext, readable: bool) =
   if readable:
-    for chr in readable_core:
+    for chr in readableCore:
       alphabet.add(chr)
     if ext:
-      for chr in readable_punc:
+      for chr in readablePunc:
         alphabet.add(chr)
   else:
     for chr in core:
@@ -32,7 +32,7 @@ proc generate_alpha(ext, readable: bool) =
         alphabet.add(chr)
 
 
-proc generate_passphrase(len: int, sep: string): string =
+proc generatePassphrase(len: int, sep: string): string =
   var words: seq[string] = @[]
 
   for _ in 0..<len:
@@ -40,7 +40,7 @@ proc generate_passphrase(len: int, sep: string): string =
   result = join(words, sep)
 
 
-proc generate_password(len: int): string =
+proc generatePassword(len: int): string =
   for _ in 0..<len:
     result.add(choose(alphabet))
 
@@ -61,14 +61,14 @@ proc generate*(mode, sep: string, wlen, plen, num: int, ext, readable: bool) =
   ##    exlude ambiguous chars
 
   if mode == "w":
-    generate_alpha(ext, readable)
+    generateAlpha(ext, readable)
 
   for _ in 0..<num:
     echo "---BEGIN---"
     if mode == "w":
-      echo generate_password(wlen)
+      echo generatePassword(wlen)
     else:
-      echo generate_passphrase(plen, sep)
+      echo generatePassphrase(plen, sep)
     echo "----END----\n"
 
 
@@ -124,14 +124,14 @@ proc main() =
       of "p", "phrase":
         mode = "p"
       of "l", "len", "length":
-        if val != "":
+        if not val.isEmptyOrWhitespace():
           wlen = parseInt(val)
           plen = parseInt(val)
       of "n", "num", "number":
-        if val != "":
+        if not val.isEmptyOrWhitespace():
           num = parseInt(val)
       of "s", "sep", "separator":
-        if val != "":
+        if not val.isEmptyOrWhitespace():
           sep = val
       of "e", "ext", "extended":
         ext = true

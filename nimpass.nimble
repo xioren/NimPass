@@ -1,6 +1,6 @@
 # Package
 
-version     = "0.1.1"
+version     = "0.2.0"
 author      = "xioren"
 description = "quickly generate secure passwords and passphrases"
 license     = "MIT"
@@ -10,4 +10,4 @@ bin         = @["nimpass"]
 
 # Dependencies
 
-requires "nim >= 1.0.6"
+requires "nim >= 1.6.0"
