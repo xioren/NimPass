@@ -32,16 +32,14 @@ proc generateAlpha(ext, readable: bool) =
         alphabet.add(chr)
 
 
-proc generatePassphrase(len: int, sep: string): string =
-  var words: seq[string] = @[]
-
-  for _ in 0..<len:
-    words.add(choose(dictionary))
-  result = join(words, sep)
+proc generatePassphrase(length: int, sep: string): string =
+  for _ in 0..<length.pred:
+    result.add(choose(dictionary) & sep)
+  result.add(choose(dictionary))
 
 
-proc generatePassword(len: int): string =
-  for _ in 0..<len:
+proc generatePassword(length: int): string =
+  for _ in 0..<length:
     result.add(choose(alphabet))
 
 

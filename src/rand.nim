@@ -1,4 +1,4 @@
-import std/[sysrand, strutils]
+import std/sysrand
 
 
 proc randBelow(n: int): int {.inline.} =
