@@ -2,8 +2,8 @@
 
 quickly generate secure passwords and passphrases
 
-#### changelog v0.2.0:
-  + use new urandom module added in nim 1.6. this makes the program available on most major platforms; not just linux.
+#### changelog v0.2.1:
+  + misc code clean up and improvmenets.
 
 ### Installation
 ```bash

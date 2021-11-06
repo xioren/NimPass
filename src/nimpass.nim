@@ -72,7 +72,7 @@ proc generate*(mode, sep: string, wlen, plen, num: int, ext, readable: bool) =
 
 proc main() =
   const
-    version = "0.1.1"
+    version = "0.2.1"
     help = """
   Usage: nimpass [options]
 
